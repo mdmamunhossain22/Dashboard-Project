@@ -12,6 +12,7 @@ const SignInForm = () => {
   const [Passworderr, setPassworderr] = useState(false)
   const [emailInfo, setEmailInfo] = useState(false)
   const [passwordInfo, setPasswordInfo] = useState(false)
+  const [showPass, setShowPass] = useState(false)
   const { register, handleSubmit, setValue } = useForm()
 
   const onSubmit = (data) => {
@@ -54,7 +55,7 @@ const SignInForm = () => {
             </label>
             <div className="relative">
               <div onMouseOver={() => setEmailInfo(true)} onMouseLeave={() => setEmailInfo(false)}
-              className="flex items-center justify-center select-none px-2 text-gray-500 dark:text-gray-400 cursor-pointer">
+                className="flex items-center justify-center select-none px-2 text-gray-500 dark:text-gray-400 cursor-pointer">
                 <span className="material-symbols-outlined select-none">info</span>
               </div>
               {emailInfo &&
@@ -87,8 +88,8 @@ const SignInForm = () => {
               <span className="text-red-500">{" * "}</span>
             </label>
             <div className="relative">
-              <div onMouseOver={()=>setPasswordInfo(true)} onMouseLeave={()=>setPasswordInfo(false)}
-              className="flex items-center justify-center select-none px-2 text-gray-500 dark:text-gray-400 cursor-pointer">
+              <div onMouseOver={() => setPasswordInfo(true)} onMouseLeave={() => setPasswordInfo(false)}
+                className="flex items-center justify-center select-none px-2 text-gray-500 dark:text-gray-400 cursor-pointer">
                 <span className="material-symbols-outlined select-none">info</span>
               </div>
               {passwordInfo &&
@@ -98,13 +99,21 @@ const SignInForm = () => {
               }
             </div>
           </div>
-          <input
-            type="password"
-            id="password"
-            {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ })}
-            className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
-            placeholder="Enter your password"
-          />
+          <div className="relative flex items-center">
+            <input
+              type={showPass ? "text" : "password"}
+              id="password"
+              {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ })}
+              className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
+              placeholder="Enter your password"
+            />
+            <div
+              className="flex items-center justify-center absolute right-3 text-gray-600 dark:text-gray-400 cursor-pointer"
+              onClick={() => setShowPass(!showPass)}
+            >
+              <span className="material-symbols-outlined">{showPass ? "visibility" : "visibility_off"}</span>
+            </div>
+          </div>
           {Passworderr && (
             <label htmlFor="password" className="text-sm text-red-500">
               Please enter a valid password!

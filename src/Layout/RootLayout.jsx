@@ -11,7 +11,12 @@ const RootLayout = () => {
 
     useEffect(() => {
         // Check if user is authenticated
-        navigate('/signin');
+        if (false) {
+            navigate('/signin');
+        }else {
+            navigate('/dashboard');
+        }
+
     }, []);
 
     return (

@@ -3,7 +3,7 @@ import { toggleTheme } from "../Store/Features/ThemeSlice"
 import { toggleSideBar } from "../Store/Features/SideBarSlice"
 import UseDropDown from "../Components/UI/UseDropDown";
 import React_SVG from "../public/react.svg"
-import { Link } from "react-router";
+import { Link , useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 const AppHeader = () => {
@@ -12,6 +12,7 @@ const AppHeader = () => {
   const theme = useSelector((state) => state.theme.theme)
   const isExpanded = useSelector((state) => state.sideBar.isExpanded)
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-50 dark:border-gray-700 dark:bg-gray-900 lg:border-b">
@@ -58,7 +59,10 @@ const AppHeader = () => {
                 {theme === "light" ? "dark_mode" : "light_mode"}
               </span>
             </button>
-            <button className="relative flex items-center justify-center text-gray-500 cursor-pointer transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
+            <button 
+            className="relative flex items-center justify-center text-gray-500 cursor-pointer transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+            onClick={() => navigate("/dashboard/notifications")}
+            >
               <span className="material-symbols-outlined">notifications</span>
             </button>
           </div>

@@ -1,40 +1,63 @@
+import { useState } from "react"
 
 
 const ChangePassword = () => {
+
+    const [showCurrPass, setShowCurrPass] = useState(false)
+    const [showNewPass, setShowNewPass] = useState(false)
+    const [showConPass, setShowConPass] = useState(false)
+
     return (
         <div className="w-full flex flex-col gap-4">
 
-            <div className="">
-                <h4 className="font-bold text-gray-700 dark:text-gray-200">Change Password</h4>
-            </div>
-
             <div className="w-full">
-                <form className="flex flex-col gap-4 w-full max-w-md" id="Change_Password">
+                <form 
+                className="flex flex-col gap-4 w-full max-w-md" id="Change_Password"
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    // Handle password change logic here
+                }}
+                >
 
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="Current_Pass" className="text-sm font-semibold text-gray-800 dark:text-gray-200">Current Password</label>
+                        <label htmlFor="Current_Pass" className="text-sm font-semibold text-gray-500 dark:text-gray-400">Current Password</label>
                         <div className="relative flex items-center">
-                            <span className="material-symbols-outlined absolute right-3 text-gray-800 dark:text-gray-200">visibility_off</span>
-                            <input id="Current_Pass" name="Current_Pass" type="password" placeholder="Enter current password"
-                                className=" w-full pl-4 py-1.5 pr-6 bg-gray-100 dark:bg-gray-800 border text-gray-900 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded-lg outline-none focus:ring-none" />
+                            <div
+                                className="flex items-center justify-center absolute right-3 text-gray-600 dark:text-gray-400 cursor-pointer"
+                                onClick={() => setShowCurrPass(!showCurrPass)}
+                            >
+                                <span className="material-symbols-outlined">{showCurrPass ? "visibility" : "visibility_off"}</span>
+                            </div>
+                            <input id="Current_Pass" name="Current_Pass" type={showCurrPass ? "text" :"password"} placeholder="Enter current password"
+                                className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2" />
                         </div>
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="New_Pass" className="text-sm font-semibold text-gray-800 dark:text-gray-200">New Password</label>
+                        <label htmlFor="New_Pass" className="text-sm font-semibold text-gray-500 dark:text-gray-400">New Password</label>
                         <div className="relative flex items-center">
-                            <span className="material-symbols-outlined absolute right-3 text-gray-800 dark:text-gray-200">visibility_off</span>
-                            <input id="New_Pass" name="New_Pass" type="password" placeholder="Enter new password"
-                                className=" w-full pl-4 py-1.5 pr-6 bg-gray-100 dark:bg-gray-800 border text-gray-900 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded-lg outline-none focus:ring-none" />
+                            <div
+                                className="flex items-center justify-center absolute right-3 text-gray-600 dark:text-gray-400 cursor-pointer"
+                                onClick={() => setShowNewPass(!showNewPass)}
+                            >
+                                <span className="material-symbols-outlined">{showNewPass ? "visibility" : "visibility_off"}</span>
+                            </div>
+                            <input id="New_Pass" name="New_Pass" type={showNewPass ? "text" :"password"} placeholder="Enter new password"
+                                className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2" />
                         </div>
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="Confirm_Pass" className="text-sm font-semibold text-gray-800 dark:text-gray-200">Confirm New Password</label>
+                        <label htmlFor="Confirm_Pass" className="text-sm font-semibold text-gray-500 dark:text-gray-400">Confirm New Password</label>
                         <div className="relative flex items-center">
-                            <span className="material-symbols-outlined absolute right-3 text-gray-800 dark:text-gray-200">visibility_off</span>
-                            <input id="Confirm_Pass" name="Confirm_Pass" type="password" placeholder="Confirm new password"
-                                className=" w-full pl-4 py-1.5 pr-6 bg-gray-100 dark:bg-gray-800 border text-gray-900 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded-lg outline-none focus:ring-none" />
+                            <div
+                                className="flex items-center justify-center absolute right-3 text-gray-600 dark:text-gray-400 cursor-pointer"
+                                onClick={() => setShowConPass(!showConPass)}
+                            >
+                                <span className="material-symbols-outlined">{showConPass ? "visibility" : "visibility_off"}</span>
+                            </div>
+                            <input id="Confirm_Pass" name="Confirm_Pass" type={showConPass ? "text" :"password"} placeholder="Confirm new password"
+                                className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2" />
                         </div>
                     </div>
 

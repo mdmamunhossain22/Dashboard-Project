@@ -6,7 +6,7 @@ const Security = () => {
         <div className="flex flex-col gap-4">
 
             <div className="">
-                <h4 className="font-bold text-gray-700 dark:text-gray-200">Security Settings</h4>
+                <h4 className="font-bold text-gray-500 dark:text-gray-400">Security Settings</h4>
             </div>
 
             <div className="flex flex-col gap-4">

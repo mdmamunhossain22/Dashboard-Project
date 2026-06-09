@@ -19,6 +19,7 @@ const SignUpForm = () => {
   const [passwordErr, setPassworderr] = useState(false)
   const [fullNameErr, setFullNameerr] = useState(false)
   const [userNameErr, setUserNameerr] = useState(false)
+  const [showPass, setShowPass] = useState(false)
   const { register, handleSubmit, setValue } = useForm()
 
   const onSubmit = (data) => {
@@ -46,7 +47,7 @@ const SignUpForm = () => {
 
 
   return (
-    <div className="flex flex-col w-lg max-md:w-full items-center gap-4 p-6 rounded-lg">
+    <div className="flex flex-col items-center justify-center w-lg h-screen max-md:w-full gap-4 p-6 rounded-lg overflow-y-auto no-scrollbar">
 
       <div className="flex flex-col gap-1.5 w-full">
         <div className="flex items-center justify-center">
@@ -62,13 +63,14 @@ const SignUpForm = () => {
 
         <div className="flex flex-col gap-4 w-full md:flex-row">
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label htmlFor="fullName" className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Full Name
               <span className="text-red-500">{" * "}</span>
             </label>
             <input
               type="text"
               id="fullName"
+              name="fullName"
               {...register("fullName", { required: true, minLength: 4, maxLength: 40 })}
               className="h-11 w-full capitalize rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
               placeholder="John Doe"
@@ -81,13 +83,14 @@ const SignUpForm = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label htmlFor="userName" className="text-sm font-medium text-gray-700 dark:text-gray-300">
               User Name
               <span className="text-red-500">{" * "}</span>
             </label>
             <input
               type="text"
               id="userName"
+              name="userName"
               {...register("userName", { required: true, minLength: 8, maxLength: 30, pattern: /^@.+$/ })}
               className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
               placeholder="@userName123"
@@ -125,13 +128,21 @@ const SignUpForm = () => {
               Password
               <span className="text-red-500">{" * "}</span>
             </label>
-            <input
-              type="password"
-              id="password"
-              {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ })}
-              className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
-              placeholder="Enter your password"
-            />
+            <div className="relative flex items-center">
+              <input
+                type={showPass ? "text" : "password"}
+                id="password"
+                {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ })}
+                className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
+                placeholder="Enter your password"
+              />
+              <div
+                className="flex items-center justify-center absolute right-3 text-gray-600 dark:text-gray-400 cursor-pointer"
+                onClick={() => setShowPass(!showPass)}
+              >
+                <span className="material-symbols-outlined">{showPass ? "visibility" : "visibility_off"}</span>
+              </div>
+            </div>
             {passwordErr && (
               <label htmlFor="password" className="text-sm text-red-500">
                 Please enter a valid password!
