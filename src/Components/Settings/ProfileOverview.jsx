@@ -1,0 +1,45 @@
+
+
+const ProfileOverview = () => {
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="">
+                <h4 className="font-bold text-gray-700 dark:text-gray-200">Account Details</h4>
+            </div>
+
+            <div className="flex flex-col">
+
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <p className="min-w-32 font-semibold text-sm">Full Name</p>
+                    <p className="text-sm font-medium text-gray-500">Musharof Chowdhury</p>
+                </div>
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <p className="min-w-32 font-semibold text-sm">User Name</p>
+                    <p className="text-sm font-medium text-gray-500">@musharofchowdhury</p>
+                </div>
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <div className="flex items-center gap-3 min-w-32">
+                        <p className=" font-semibold text-sm">Email</p>
+                        <span className="px-2 py-0.5 text-xs text-green-600 rounded-full bg-green-100 dark:bg-green-900/50">verified</span>
+                    </div>
+                    <p className="text-sm font-medium text-gray-500">randomuser@pimjo.com</p>
+                </div>
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <p className="min-w-32 font-semibold text-sm">Phone</p>
+                    <p className="text-sm font-medium text-gray-500">+09 363 398 46</p>
+                </div>
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <p className="min-w-32 font-semibold text-sm">Address</p>
+                    <p className="text-sm font-medium text-gray-500">Arizona, United States</p>
+                </div>
+                <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
+                    <p className="min-w-32 font-semibold text-sm">Account Type</p>
+                    <p className="text-sm font-medium text-gray-500">Admin</p>
+                </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default ProfileOverview
