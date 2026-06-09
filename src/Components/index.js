@@ -8,6 +8,7 @@ import EditProfileForm from "./Forms/EditProfileForm"
 import SignInForm from "./Auth/SignInForm";
 import SignUpForm from "./Auth/SignUpForm";
 import AddWebLinkForm from "./Forms/AddWebLinkForm";
+import AddUserForm from "./Forms/AddUserForm";
 
 
 export { 
@@ -21,4 +22,5 @@ export {
     SignInForm,
     SignUpForm,
     AddWebLinkForm,
+    AddUserForm,
 }

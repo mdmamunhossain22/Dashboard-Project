@@ -2,20 +2,23 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   allUserData: [],
-  loading: false,
+  addUserFormIsOpen: false
 }
 
 export const usersListSlice = createSlice({
   name: 'usersList',
   initialState,
   reducers: {
-        setUserData: (state, action) => {          
-            state.allUserData = action.payload
-        },
-        setLoading: (state, action) => {
-            state.loading = action.payload
-        }
+    setUserData: (state, action) => {
+      state.allUserData = action.payload
+    },
+    toggleAddUserForm: (state) => {
+      state.addUserFormIsOpen = !state.addUserFormIsOpen
+    },
+    addUserData: (state, action) => {
+      state.allUserData.push(action.payload)
+    }
   }
 })
 
-export const { setUserData , setLoading } = usersListSlice.actions
+export const { setUserData, toggleAddUserForm, addUserData } = usersListSlice.actions

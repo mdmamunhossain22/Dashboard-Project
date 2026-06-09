@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { setUserData } from "../../Store/Features/UsersListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LoadingAnimation from "../UI/LoadingAnimation";
+import { Modal } from "../../Components/UI/Modal/Modal";
+import { AddUserForm } from "../../Components";
+import { toggleAddUserForm } from "../../Store/Features/UsersListSlice";
 
 
 const UsersTable = () => {
 
     const usersData = useSelector(state => state.usersList.allUserData)
-    const loading = useSelector(state => state.usersList.loading)
+    const addUserFormIsOpen = useSelector(state => state.usersList.addUserFormIsOpen)
     const dispatch = useDispatch()
 
     const addUser = () => { }
@@ -30,15 +32,22 @@ const UsersTable = () => {
     return (
         <div className="relative flex flex-col w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-2xl overflow-hidden">
 
-            {loading ? <LoadingAnimation color="#2ca0ff" /> : null}
+            {
+                /* Add User Form Modal */
+                <Modal isOpen={addUserFormIsOpen} showCloseButton={false}
+                    className="flex justify-center w-fit h-fit">
+                    <AddUserForm />
+                </Modal>
+            }
 
             <div className="flex items-center justify-between px-6 py-5">
                 <h2 className="text-base font-medium text-gray-800 dark:text-white/90">All User Data</h2>
-                <button className="text-sm px-4 py-2.5 rounded-lg bg-blue-500 text-gray-50 cursor-pointer">
+                <button 
+                className="text-sm px-4 py-2.5 rounded-lg bg-blue-500 text-gray-50 cursor-pointer"
+                onClick={() => dispatch(toggleAddUserForm())}
+                >
                     Add User
                 </button>
-
-
             </div>
 
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 sm:p-6">
@@ -84,7 +93,7 @@ const UsersTable = () => {
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-1 px-4 py-2.5 min-w-60 w-full">
-                                            <span className="font-medium text-sm">{user.firstName + " " + user.lastName}</span>
+                                            <span className="font-medium text-sm">{user.firstName || user.fullName} {user.lastName || ""}</span>
                                             <span className="text-xs">{user.email}</span>
                                         </div>
                                         <div className="px-4 py-2.5 min-w-60 w-full">

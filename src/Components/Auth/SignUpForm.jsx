@@ -2,18 +2,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { ViteFavicon_SVG } from "../../public";
 import { Link } from "react-router";
 import { useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 
 const SignUpForm = () => {
-
-  const [arr, setArr] = useState([
-    {
-      email: "aadfasdf@dfa.ghh",
-      password: "asdfAsADS12"
-    }
-  ])
-
 
   const [emailErr, setEmailerr] = useState(false)
   const [passwordErr, setPassworderr] = useState(false)
@@ -24,8 +16,6 @@ const SignUpForm = () => {
 
   const onSubmit = (data) => {
     if (data) {
-      setArr(prev => [...prev, data])
-      console.log(arr)
       setValue("fullName", "")
       setValue("userName", "")
       setValue("email", "")

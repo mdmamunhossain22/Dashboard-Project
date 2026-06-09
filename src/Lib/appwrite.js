@@ -26,7 +26,7 @@ export class AppwriteService {
 
     async signUp(email, password, name, userName) {
         try {
-            const userAccount = await this.account.create(ID.unique(), email, password, userName , name);
+            const userAccount = await this.account.create(ID.unique(), email, password, userName );
             if (userAccount) {
                 return this.signIn(email, password);
             } else {

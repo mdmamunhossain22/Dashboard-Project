@@ -8,7 +8,6 @@ import { setNotificationData } from "../../Store/Features/NotificationsSlice";
 const NotificationTable = () => {
 
     const notificationData = useSelector(state => state.notification.notificationData)
-    const loading = useSelector(state => state.notification.loading)
     const dispatch = useDispatch()
     
 
@@ -26,8 +25,6 @@ const NotificationTable = () => {
 
     return (
         <div className="relative flex flex-col w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-2xl overflow-hidden">
-
-            {loading ? <LoadingAnimation color="#2ca0ff" /> : null}
 
             <div className="flex items-center px-6 py-5">
                 <h2 className="text-base font-medium text-gray-800 dark:text-white/90">All Notifications</h2>

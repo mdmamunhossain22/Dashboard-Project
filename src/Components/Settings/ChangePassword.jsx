@@ -61,9 +61,9 @@ const ChangePassword = () => {
                         </div>
                     </div>
 
-                    <div className="">
+                    <div className="mt-2">
                         <button type="submit"
-                            className="px-3 py-2 rounded-md text-sm font-medium text-white bg-blue-500 cursor-pointer">
+                            className="px-3 py-2 max-md:w-full rounded-md text-sm font-medium text-white bg-blue-500 cursor-pointer">
                             Change Password
                         </button>
                     </div>

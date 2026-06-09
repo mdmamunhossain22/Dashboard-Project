@@ -44,7 +44,7 @@ const ProfileCard = () => {
                 </div>
 
                 <div className="flex flex-col gap-5 max-w-96">
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Presonal Information</h3>
+                    <h3 className="text-lg font-semibold max-md:text-center text-gray-800 dark:text-white/90">Presonal Information</h3>
                     <div className="flex flex-wrap gap-6 w-full">
 
                         <div className="flex flex-col gap-2">
@@ -75,24 +75,24 @@ const ProfileCard = () => {
             <div id="Address" className="flex max-md:flex-col justify-between gap-4 p-5 border border-gray-200 dark:border-gray-700 rounded-2xl lg:p-6">
 
                 <div className="flex flex-col gap-5">
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Address</h3>
+                    <h3 className="text-lg font-semibold max-md:text-center text-gray-800 dark:text-white/90">Address</h3>
                     <div className="flex flex-wrap gap-6 max-w-96">
 
-                        <div className="flex flex-col gap-2">
-                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Full Name</p>
-                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">Musharof Chowdhury</p>
+                        <div className="flex flex-col gap-2 w-30 max-md:w-full">
+                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Country</p>
+                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">Bangladesh</p>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">User Name</p>
-                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">@musharofchowdhury</p>
+                        <div className="flex flex-col gap-2 w-30 max-md:w-full">
+                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">City/State</p>
+                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">Dhaka</p>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Email Address</p>
-                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">randomuser@pimjo.com</p>
+                        <div className="flex flex-col gap-2 w-30 max-md:w-full">
+                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Postal Code</p>
+                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">1207</p>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Phone</p>
-                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">+8801793-795346</p>
+                        <div className="flex flex-col gap-2 w-30 max-md:w-full">
+                            <p className="text-xs leading-normal text-gray-500 dark:text-gray-400">Street Address</p>
+                            <p className="text-sm font-medium text-gray-800 dark:text-white/90">123 Main Street</p>
                         </div>
 
                     </div>

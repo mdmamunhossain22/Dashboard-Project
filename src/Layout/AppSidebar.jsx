@@ -63,7 +63,7 @@ const AppSidebar = () => {
             return (
               <li key={item.name}>
                 <button onClick={() => { navigate(item.path); dispatch(setSideBarActiveTab(item.name)) }}
-                  className={`flex items-center gap-3 font-medium ${activeTab === item.name ? "bg-blue-100 dark:bg-blue-500/50 text-blue-400 dark:text-blue-300" : "text-gray-700 dark:text-gray-300" }  text-sm rounded-md cursor-pointer w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800`}>
+                  className={`flex items-center gap-3 font-medium ${activeTab === item.name ? "bg-blue-100 dark:bg-blue-500/50 text-blue-400 dark:text-blue-300" : "text-gray-700 dark:text-gray-300"}  text-sm rounded-md cursor-pointer w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800`}>
                   <span className="material-symbols-outlined ">{item.icon}</span>
                   {isExpand ? item.name : ""}
                   {isExpand ? <span className="material-symbols-outlined  ml-auto">keyboard_arrow_right</span> : ""}
@@ -80,7 +80,7 @@ const AppSidebar = () => {
   }
 
   return (
-    <aside className={`max-md:absolute flex flex-col ${isExpand ? "lg:w-72 max-md:translate-x-0" : "lg:w-24 items-center max-md:-translate-x-full"} h-screen bg-white dark:bg-gray-900 max-md:z-40 border-r border-gray-300 dark:border-gray-700 px-5 max-md:shadow-lg transition-width duration-300`}>
+    <aside className={`max-md:absolute flex flex-col ${isExpand ? "lg:w-72 max-md:translate-x-0" : "lg:w-24 items-center max-md:-translate-x-full"} h-screen bg-white dark:bg-gray-900 z-40 border-r border-gray-300 dark:border-gray-700 px-5 max-md:shadow-lg transition-width duration-300`}>
       <div className={`flex items-center ${isExpand ? "" : "justify-center"} gap-3 py-8`} id="Logo/Title_Div">
         <img className="max-md:opacity-0" src={React_SVG} alt="Logo" />
         {isExpand ? <h2 className="max-md:opacity-0 font-medium text-2xl text-black dark:text-gray-50">TailAdmin</h2> : ""}
@@ -88,9 +88,9 @@ const AppSidebar = () => {
 
       <div className="flex flex-col gap-4 pb-10 overflow-y-auto no-scrollbar">
 
-        {renderItems(menuItems , "Menu")}
+        {renderItems(menuItems, "Menu")}
 
-        {renderItems(systemItems , "System")}
+        {renderItems(systemItems, "System")}
 
       </div>
     </aside>
