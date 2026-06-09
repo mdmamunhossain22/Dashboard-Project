@@ -9,15 +9,13 @@ const RootLayout = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // Check if user is authenticated
-        if (false) {
-            navigate('/signin');
-        }else {
-            navigate('/dashboard');
-        }
-
-    }, []);
+    // useEffect(() => {
+    //     if (false) {
+    //         navigate('/signin');
+    //     }else {
+    //         navigate('/dashboard');
+    //     }
+    // }, []);
 
     return (
         <div className="h-screen w-screen bg-white dark:bg-gray-900 overflow-y-auto">

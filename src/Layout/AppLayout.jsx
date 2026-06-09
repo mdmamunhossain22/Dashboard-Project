@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
+import axios from "axios";
 import AppHeader from './AppHeader'
 import AppSidebar from './AppSidebar'
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
 import { setTheme } from '../Store/Features/ThemeSlice';
+import { setUserData , setLoading } from "../Store/Features/UsersListSlice";
+import { setNotificationData , setLoadingN } from "../Store/Features/NotificationsSlice";
 
 const AppLayout = () => {
 
@@ -25,6 +28,33 @@ const AppLayout = () => {
   useEffect(() => {
     localStorage.setItem("theme", appTheme)
   }, [appTheme])
+
+  const getUserDataFromApi = async () => {
+    const data = await axios.get('https://dummyjson.com/users?limit=15')
+      .then(res => res.data);
+    dispatch(setUserData(data.users))
+    data && dispatch(setLoading(false))
+  }
+
+  useEffect(() => {
+    dispatch(setLoading(true))
+    // Fetch user data from API and update state
+    getUserDataFromApi()
+
+  }, [])
+
+  const getInfoDataFromApi = async () => {
+          const data = await axios.get('https://dummyjson.com/users?limit=15')
+              .then(res => res.data);
+          dispatch(setNotificationData(data.users))
+          // console.log(data.users)
+          data && dispatch(setLoadingN(false))
+      }
+  
+      useEffect(() => {
+          dispatch(setLoadingN(true))
+          getInfoDataFromApi()
+      }, [])
 
   const activeTab = useSelector(state => state.applayout.sideBarActiveTab)
 

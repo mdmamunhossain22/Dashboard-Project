@@ -8,21 +8,9 @@ import { setNotificationData } from "../../Store/Features/NotificationsSlice";
 const NotificationTable = () => {
 
     const notificationData = useSelector(state => state.notification.notificationData)
+    const loading = useSelector(state => state.notification.loading)
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(false)
-
-    const getInfoDataFromApi = async () => {
-        const data = await axios.get('https://dummyjson.com/users?limit=15')
-            .then(res => res.data);
-        dispatch(setNotificationData(data.users))
-        // console.log(data.users)
-        data && setLoading(false)
-    }
-
-    useEffect(() => {
-        setLoading(true)
-        getInfoDataFromApi()
-    }, [])
+    
 
     const deleteAllInfo = () => {
         // Implement the logic to delete all information here

@@ -8,27 +8,15 @@ import LoadingAnimation from "../UI/LoadingAnimation";
 const UsersTable = () => {
 
     const usersData = useSelector(state => state.usersList.allUserData)
+    const loading = useSelector(state => state.usersList.loading)
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(false)
 
-    const getUserDataFromApi = async () => {
-        const data = await axios.get('https://dummyjson.com/users?limit=15')
-            .then(res => res.data);
-        dispatch(setUserData(data.users))
-        data && setLoading(false)
-    }
-
-    useEffect(() => {
-        setLoading(true)
-        // Fetch user data from API and update state
-        getUserDataFromApi()
-
-    }, [])
+    const addUser = () => { }
 
     const deleteAllUser = () => {
         // Implement the logic to delete all information here
         if (!usersData.length) return
-        
+
         const ans = window.confirm("Are You Sure to Delete All Data?")
         ans ? dispatch(setUserData([])) : null
     }
@@ -49,8 +37,8 @@ const UsersTable = () => {
                 <button className="text-sm px-4 py-2.5 rounded-lg bg-blue-500 text-gray-50 cursor-pointer">
                     Add User
                 </button>
-                            
-                                
+
+
             </div>
 
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 sm:p-6">
@@ -63,8 +51,8 @@ const UsersTable = () => {
                             </h3>
                         </div>
                         <div className="">
-                            <button onClick={()=>deleteAllUser()}
-                            className="flex justify-center items-center px-4 py-1 font-medium text-sm text-red-500 border border-red-500 rounded-sm cursor-pointer">Delete All</button>
+                            <button onClick={() => deleteAllUser()}
+                                className="flex justify-center items-center px-4 py-1 font-medium text-sm text-red-500 border border-red-500 rounded-sm cursor-pointer">Delete All</button>
                         </div>
                     </div>
 
@@ -109,8 +97,8 @@ const UsersTable = () => {
                                             <button className="flex items-center justify-center p-1 cursor-pointer ">
                                                 <span className="material-symbols-outlined text-green-400">edit_square</span>
                                             </button>
-                                            <button onClick={()=> deleteUser(user.id)}
-                                            className="flex items-center justify-center p-1 cursor-pointer ">
+                                            <button onClick={() => deleteUser(user.id)}
+                                                className="flex items-center justify-center p-1 cursor-pointer ">
                                                 <span className="material-symbols-outlined text-red-400">delete</span>
                                             </button>
                                         </div>
