@@ -7,6 +7,8 @@ import { notificationSlice } from './Features/NotificationsSlice'
 import { appLaoutSlice } from './Features/AppLaoutSlice'
 import { userProfileSlice } from './Features/UserProfileSlice'
 import { homePageSlice } from './Features/HomePageSlice'
+import { userDataSlice } from './Features/UserDataSlice'
+
 
 
 export const store = configureStore({
@@ -19,5 +21,6 @@ export const store = configureStore({
     applayout: appLaoutSlice.reducer,
     userProfile: userProfileSlice.reducer,
     home: homePageSlice.reducer,
+    userData: userDataSlice.reducer,
   }
 })

@@ -3,23 +3,26 @@ import { useEffect, useState } from "react";
 import LoadingAnimation from "../UI/LoadingAnimation";
 import axios from "axios";
 import { setNotificationData } from "../../Store/Features/NotificationsSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const NotificationTable = () => {
 
     const notificationData = useSelector(state => state.notification.notificationData)
     const dispatch = useDispatch()
-    
+
 
     const deleteAllInfo = () => {
         // Implement the logic to delete all information here
         const ans = window.confirm("Are You Sure to Delete All Data?")
         ans ? dispatch(setNotificationData([])) : null
+        toast.success("All Information Deleted Successfully!")
     }
-    
-    const deleteColumn = (id) => { 
-        const newData = notificationData.filter((item)=> item.id !== id && id)
+
+    const deleteColumn = (id) => {
+        const newData = notificationData.filter((item) => item.id !== id && id)
         dispatch(setNotificationData(newData))
+        toast.success("Information Deleted Successfully!")
     }
 
 
@@ -29,6 +32,8 @@ const NotificationTable = () => {
             <div className="flex items-center px-6 py-5">
                 <h2 className="text-base font-medium text-gray-800 dark:text-white/90">All Notifications</h2>
             </div>
+
+            <Toaster position="top-center" reverseOrder={false} />
 
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 sm:p-6">
                 <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-white pt-4 dark:border-white/5 dark:bg-white/3">
@@ -40,8 +45,8 @@ const NotificationTable = () => {
                             </h3>
                         </div>
                         <div className="">
-                            <button onClick={()=>deleteAllInfo()}
-                            className="flex justify-center items-center px-4 py-1 font-medium text-sm text-red-500 border border-red-500 rounded-sm cursor-pointer">Delete All</button>
+                            <button onClick={() => deleteAllInfo()}
+                                className="flex justify-center items-center px-4 py-1 font-medium text-sm text-red-500 border border-red-500 rounded-sm cursor-pointer">Delete All</button>
                         </div>
                     </div>
 
@@ -80,8 +85,8 @@ const NotificationTable = () => {
                                         <div className="flex items-center min-h-12 overflow-y-auto no-scrollbar text-xs font-medium border-r border-gray-400 dark:border-gray-600 px-3 py-2 min-w-36 max-md:max-w-36 w-full text-nowrap">{data.userAgent}</div>
                                         <div className="flex items-center min-h-12 overflow-y-auto no-scrollbar text-xs font-medium border-r border-gray-400 dark:border-gray-600 px-3 py-2 min-w-24 max-w-24 w-full">{data.birthDate}</div>
                                         <div className="flex items-center min-h-12 overflow-y-auto no-scrollbar px-3 py-2 min-w-20 max-w-20 w-full gap-3">
-                                            <button onClick={()=> deleteColumn(data.id)}
-                                            className="flex items-center justify-center px-1 cursor-pointer ">
+                                            <button onClick={() => deleteColumn(data.id)}
+                                                className="flex items-center justify-center px-1 cursor-pointer ">
                                                 <span className="material-symbols-outlined text-red-400">delete</span>
                                             </button>
                                         </div>

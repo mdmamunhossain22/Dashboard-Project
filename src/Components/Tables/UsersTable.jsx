@@ -5,6 +5,7 @@ import axios from "axios";
 import { Modal } from "../../Components/UI/Modal/Modal";
 import { AddUserForm } from "../../Components";
 import { toggleAddUserForm } from "../../Store/Features/UsersListSlice";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const UsersTable = () => {
@@ -21,11 +22,13 @@ const UsersTable = () => {
 
         const ans = window.confirm("Are You Sure to Delete All Data?")
         ans ? dispatch(setUserData([])) : null
+        ans && toast.success("All User Data Deleted Successfully!")
     }
 
     const deleteUser = (id) => {
         const newData = usersData.filter((item) => item.id !== id && id)
         dispatch(setUserData(newData))
+        toast.success("User deleted successfully!")
     }
 
 
@@ -42,13 +45,15 @@ const UsersTable = () => {
 
             <div className="flex items-center justify-between px-6 py-5">
                 <h2 className="text-base font-medium text-gray-800 dark:text-white/90">All User Data</h2>
-                <button 
-                className="text-sm px-4 py-2.5 rounded-lg bg-blue-500 text-gray-50 cursor-pointer"
-                onClick={() => dispatch(toggleAddUserForm())}
+                <button
+                    className="text-sm px-4 py-2.5 rounded-lg bg-blue-500 text-gray-50 cursor-pointer"
+                    onClick={() => dispatch(toggleAddUserForm())}
                 >
                     Add User
                 </button>
             </div>
+
+            <Toaster position="top-center" reverseOrder={false} />
 
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 sm:p-6">
                 <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-white pt-4 dark:border-white/5 dark:bg-white/3">

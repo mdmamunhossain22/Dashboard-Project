@@ -33,20 +33,15 @@ const AppLayout = () => {
   }, [appTheme])
 
   const getUserDataFromApi = async () => {
+    dispatch(setLoading(true))
     const data = await axios.get('https://dummyjson.com/users?limit=15')
       .then(res => res.data);
     dispatch(setUserData(data.users))
     data && dispatch(setLoading(false))
   }
 
-  useEffect(() => {
-    dispatch(setLoading(true))
-    // Fetch user data from API and update state
-    getUserDataFromApi()
-
-  }, [])
-
   const getInfoDataFromApi = async () => {
+    dispatch(setLoading(true))
     const data = await axios.get('https://dummyjson.com/users?limit=15')
       .then(res => res.data);
     dispatch(setNotificationData(data.users))
@@ -55,9 +50,13 @@ const AppLayout = () => {
   }
 
   useEffect(() => {
-    dispatch(setLoading(true))
+    // Fetch user data from API and update state
+    getUserDataFromApi()
     getInfoDataFromApi()
+
   }, [])
+
+
 
 
   return (
@@ -67,12 +66,12 @@ const AppLayout = () => {
         <AppHeader />
         <div className="flex flex-col w-full h-full p-6 max-md:p-4 overflow-y-auto no-scrollbar bg-gray-100 dark:bg-gray-950">
           {/* Pages rendered through routes */}
-          {loading ? 
-          <div className="reletive h-full w-full ">
-            <LoadingAnimation color="#2ca0ff" />
-          </div>
-          : 
-          null}
+          {loading ?
+            <div className="reletive h-full w-full ">
+              <LoadingAnimation color="#2ca0ff" />
+            </div>
+            :
+            null}
           <Outlet />
         </div>
       </div>
