@@ -15,6 +15,5 @@ const userData = {
     },
     verified: true,
     password: "hashed_password_123",
-    lastlogin: "2024-06-01T12:34:56Z",
     profilepicture: "https://randomuser.me/api/portraits/men/1.jpg",
 }

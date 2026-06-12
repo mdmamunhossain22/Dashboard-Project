@@ -6,8 +6,8 @@ const initialState = {
     fullname: "Musharof Chowdhury",
     username: "@musharofchowdhury",
     email: "musharofchowdhury@example.com",
-    role: "Admin",
-    phone: 8801793795346 ,
+    role: "admin",
+    phone: 1793795346 ,
     bio: "software developer with a passion for creating amazing user experiences.",
     address: {
       city: "Dhaka",
@@ -17,7 +17,8 @@ const initialState = {
     },
     verified: true,
     password: "hashed_password_123",
-    profilepicture: "https://randomuser.me/api/portraits/men/1.jpg",
+    imageurl: null,
+    profilepictureid: null,
   },
 }
 
@@ -26,11 +27,14 @@ export const userDataSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      console.log(action.payload)
-      const { fullname, username , email , phone , bio , profilepicture } = action.payload;
-      state.userData = { ...state.userData, fullname, username, email, phone, bio , profilepicture };
+      // console.log(action.payload)
+      const { id , fullname, username , email , role , phone , bio , verified , password , profilepictureid } = action.payload;
+      state.userData = { ...state.userData , id: id , fullname, username , email , role , phone , bio , verified , password , profilepictureid };
+    },
+    setImageUrl: (state, action) => {
+      state.userData = {...state.userData , imageurl: action.payload}
     }
   }
 })
 
-export const { setUserData } = userDataSlice.actions
+export const { setUserData , setImageUrl } = userDataSlice.actions

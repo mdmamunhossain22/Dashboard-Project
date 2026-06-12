@@ -3,13 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import { toggleProfileForm } from "../../Store/Features/UserProfileSlice"
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
-import { setUserData } from "../../Store/Features/UserDataSlice";
+import { setImageUrl, setUserData } from "../../Store/Features/UserDataSlice";
+import storageService from "../../Lib/storage";
+import databaseService from "../../Lib/database";
 
 
 const EditProfileForm = () => {
 
     const userData = useSelector((state) => state.userData.userData)
-    // console.log(userData)
+    console.log(userData)
 
     const fileInputRef = useRef(null);
     const [imageInput, setImageInput] = useState(null);
@@ -27,22 +29,74 @@ const EditProfileForm = () => {
         }
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // console.log(data)
         if (data.fullName && data.userName && data.email && data.phone) {
 
-            let i = Math.floor(Math.random()*10)
 
-            const newData = {
+            let newData = {
+                id: userData.id,
                 fullname: data.fullName,
                 username: data.userName,
+                role: userData.role,
                 email: data.email,
                 phone: data.phone,
                 bio: data.bio,
-                profilepicture: previewUrl || `https://randomuser.me/api/portraits/men/${i}.jpg`,
+                verified: false,
+                password: userData.password,
+                profilepictureid: userData.profilepictureid,
             }
 
-            dispatch(setUserData(newData))
+            if (previewUrl) {
+
+                if (userData.profilepictureid) {
+                    async function update() {
+                        const res = await storageService.updateImage(userData.profilepictureid, "Upload_Photo")
+                        await console.log(res, "update res")
+                        if (res) {
+                            newData = {
+                                id: userData.id,
+                                fullname: data.fullName,
+                                username: data.userName,
+                                role: userData.role,
+                                email: data.email,
+                                phone: data.phone,
+                                bio: data.bio,
+                                verified: false,
+                                password: userData.password,
+                                profilepictureid: res.$id,
+                            }
+                            const imageUrl = await storageService.getImageView(res.$id)
+                            imageUrl && await dispatch(setImageUrl(imageUrl))
+                            console.log(newData, "update newData")
+                            const responce = await databaseService.updateUserData(newData)
+                            responce && console.log(responce, "after update image data from server")
+                        }
+                    }
+                    update()
+                } else {
+                    async function upload() {
+                        const res = await storageService.upLoadImage("Upload_Photo")
+                        await console.log(res, "upload")
+                        if (res) {
+                            newData = { ...newData, profilepictureid: res.$id }
+                            const imageUrl = await storageService.getImageView(res.$id)
+                            imageUrl && await dispatch(setImageUrl(imageUrl))
+                            console.log(newData, "upload")
+                            const responce = await databaseService.updateUserData(newData)
+                            responce && console.log(responce, "after upload image data from server")
+                        }
+                    }
+                    upload()
+                }
+            }
+
+
+
+            const respomse = await databaseService.updateUserData(newData)
+            respomse && console.log(respomse, "without upload image data from server")
+
+            respomse && dispatch(setUserData(newData))
             setValue("fullName", "")
             setValue("userName", "")
             setValue("email", "")
@@ -94,7 +148,7 @@ const EditProfileForm = () => {
                     <h2 className="text-lg text-gray-800 dark:text-gray-200">Change Profile Picture</h2>
                     <div className="relative w-fit flex">
                         <div className=" size-24 max-md:size-20 rounded-full overflow-hidden">
-                            <img src={previewUrl || userData.profilepicture} alt="" className="h-full w-full" />
+                            <img src={previewUrl || userData.imageurl} alt="" className="h-full w-full" />
                         </div>
                         <div className="flex items-center max-md:w-52 w-60 ml-8">
                             <p className="text-sm text-gray-600 dark:text-gray-400">{imageInput || "Upload a square image (200×200 px) (1 : 1) in JPEG or PNG format."}</p>
@@ -175,14 +229,18 @@ const EditProfileForm = () => {
                                 Phone <span className="text-red-500">{" * "}</span>
                             </label>
 
-                            <input
-                                className="h-11 w-full rounded-lg appearance-none px-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
-                                type="number"
-                                name="phone"
-                                id="phone"
-                                placeholder="+880 1234-567890"
-                                {...register("phone", { required: true, minLength: 11, maxLength: 13, pattern: /^\+?\d{11,13}$/ })}
-                            />
+                            <div className=" relative flex items-center w-56 max-md:w-full" >
+                                <span className=" absolute left-2 text-sm text-gray-700 dark:text-gray-300">+880</span>
+                                <input
+                                    className="h-11 w-full rounded-lg appearance-none pl-11 pr-4 py-2.5 text-sm shadow-xs placeholder:text-gray-400 focus:outline-hidden  dark:bg-gray-900 dark:placeholder:text-white/30  bg-transparent text-gray-800 focus:border-brand-300 focus:ring-indigo-500/20 dark:text-white/90  dark:focus:border-indigo-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2"
+                                    type="number"
+                                    name="phone"
+                                    id="phone"
+                                    placeholder="1234-567890"
+                                    {...register("phone", { required: true, minLength: 10, maxLength: 10, pattern: /^\+?\d{10,11}$/ })}
+                                />
+                            </div>
+
                         </div>
                     </div>
 

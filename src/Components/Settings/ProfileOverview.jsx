@@ -32,7 +32,7 @@ const ProfileOverview = () => {
                 </div>
                 <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
                     <p className="min-w-32 font-semibold text-sm">Phone</p>
-                    <p className="text-sm font-medium text-gray-500">{"+" + userData.phone}</p>
+                    <p className="text-sm font-medium text-gray-500">{userData.phone ? "+880" + userData.phone : "null"}</p>
                 </div>
                 <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
                     <p className="min-w-32 font-semibold text-sm">Address</p>
@@ -40,7 +40,7 @@ const ProfileOverview = () => {
                 </div>
                 <div className="flex items-center gap-2 py-2 text-gray-800 dark:text-gray-200">
                     <p className="min-w-32 font-semibold text-sm">Account Type</p>
-                    <p className="text-sm font-medium text-gray-500">{userData.role}</p>
+                    <p className="text-sm font-medium capitalize text-gray-500">{userData.role}</p>
                 </div>
 
             </div>

@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import { ViteFavicon_SVG } from "../../public";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import appwriteService from "../../Lib/appwrite";
+import toast, { Toaster } from "react-hot-toast";
+import databaseService from "../../Lib/database";
+import { setUserData } from "../../Store/Features/UserDataSlice";
 
 
 const SignUpForm = () => {
@@ -13,17 +17,53 @@ const SignUpForm = () => {
   const [userNameErr, setUserNameerr] = useState(false)
   const [showPass, setShowPass] = useState(false)
   const { register, handleSubmit, setValue } = useForm()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const onSubmit = (data) => {
-    if (data) {
-      setValue("fullName", "")
-      setValue("userName", "")
-      setValue("email", "")
-      setValue("password", "")
-      setEmailerr(false)
-      setPassworderr(false)
-      setFullNameerr(false)
-      setUserNameerr(false)
+
+  const onSubmit = async (data) => {
+    if (data.fullName && data.userName && data.email && data.password) {
+
+      const session = await appwriteService.signUp(data.email, data.password, data.fullName)
+      if (session) {
+
+        const newUserData = {
+          id: session.userId,
+          fullname: data.fullName,
+          username: data.userName,
+          email: data.email,
+          role: "user",
+          phone: null,
+          bio: null,
+          verified: false,
+          password: data.password,
+          profilepictureid: null,
+        }
+
+        setValue("fullName", "")
+        setValue("userName", "")
+        setValue("email", "")
+        setValue("password", "")
+        setEmailerr(false)
+        setPassworderr(false)
+        setFullNameerr(false)
+        setUserNameerr(false)
+        localStorage.setItem("session", session)
+
+        const res = await databaseService.createUserData(newUserData)
+        console.log(res)
+
+        res && dispatch(setUserData(res))
+
+        navigate("/dashboard")
+      }
+
+      if (!session) {
+        localStorage.setItem("session", "")
+        toast.error("Invalid Credentials! Data already exists! SignUp Failed!")
+      }
+      console.log(session)
+
     }
   }
 
@@ -38,6 +78,8 @@ const SignUpForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-lg h-screen max-md:w-full gap-4 p-6 rounded-lg overflow-y-auto no-scrollbar">
+
+      <Toaster />
 
       <div className="flex flex-col gap-1.5 w-full">
         <div className="flex items-center justify-center">

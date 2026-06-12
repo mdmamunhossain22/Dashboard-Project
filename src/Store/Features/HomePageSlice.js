@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { WebLinks } from '../../Components'
 
 const initialState = {
   webFormIsOpen: false,

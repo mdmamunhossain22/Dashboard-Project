@@ -3,6 +3,7 @@ import { EditProfileForm } from "../index";
 import { Modal } from "../UI/Modal/Modal"
 import { toggleProfileForm } from "../../Store/Features/UserProfileSlice";
 
+
 const ProfileCard = () => {
 
 
@@ -25,11 +26,11 @@ const ProfileCard = () => {
         },
         {
             fildName: "Phone",
-            data: "+ " + userData.phone,
+            data: userData.phone ? "+88 " + userData.phone : "null",
         },
         {
             fildName: "Bio",
-            data: userData.bio,
+            data: userData.bio || "null",
         },
     ]
 
@@ -51,7 +52,7 @@ const ProfileCard = () => {
             data: userData.address.street,
         },
     ]
-
+   
 
     return (
         <div className="flex flex-col gap-3 w-full p-6 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl">
@@ -70,11 +71,11 @@ const ProfileCard = () => {
 
                     <div className="flex max-md:flex-col items-center gap-5">
                         <div className="flex items-center justify-center overflow-hidden h-20 w-20 rounded-full">
-                            <img src={userData.profilepicture} alt="" className="h-full w-full" />
+                            <img src={ userData.imageurl || "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"} alt="" className="h-full w-full" />
                         </div>
                         <div className="flex flex-col max-md:items-center gap-2">
                             <h2 className="text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">{userData.fullname}</h2>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">{userData.role}</p>
+                            <p className="text-sm text-gray-500 capitalize dark:text-gray-400">{userData.role}</p>
                         </div>
                     </div>
 

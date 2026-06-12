@@ -1,12 +1,21 @@
 import { useDispatch, useSelector } from "react-redux"
 import { ViteFavicon_SVG } from "../../public";
-import { Link } from "react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import InfoPopUp from "../UI/InfoPopUp";
+import appwriteService from "../../Lib/appwrite";
+import toast, { Toaster } from "react-hot-toast";
+import { setLoggedIn, setSession } from "../../Store/Features/AuthSlice";
+import databaseService from "../../Lib/database";
+import { setImageUrl, setUserData } from "../../Store/Features/UserDataSlice";
+import storageService from "../../Lib/storage";
 
 
 const SignInForm = () => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [Emailerr, setEmailerr] = useState(false)
   const [Passworderr, setPassworderr] = useState(false)
@@ -15,13 +24,38 @@ const SignInForm = () => {
   const [showPass, setShowPass] = useState(false)
   const { register, handleSubmit, setValue } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    // console.log(data)
     if (data.email && data.password) {
-      setValue("email", "")
-      setValue("password", "")
-      setEmailerr(false)
-      setPassworderr(false)
+
+      const session = await appwriteService.signIn(data.email, data.password)
+      if (session) {
+        setValue("email", "")
+        setValue("password", "")
+        setEmailerr(false)
+        setPassworderr(false)
+        localStorage.setItem("session", session)
+        dispatch(setSession(session))
+        dispatch(setLoggedIn(true))
+
+        const userData = await databaseService.getUserData(session.userId)
+
+        if (userData.profilepictureid) {
+          const imageUrl = await storageService.getImageView(userData.profilepictureid)
+          console.log(imageUrl)
+          imageUrl && await dispatch(setImageUrl(imageUrl))
+        }
+
+        userData && await dispatch(setUserData(userData))
+
+        navigate("/dashboard")
+      }
+
+      if (!session) {
+        localStorage.setItem("session", "")
+        toast.error("Invalid Credentials! SignIn Failed!")
+      }
+
     }
   }
 
@@ -34,6 +68,8 @@ const SignInForm = () => {
 
   return (
     <div className="flex flex-col w-sm max-md:w-full items-center gap-4 p-6 rounded-lg">
+
+      <Toaster />
 
       <div className="flex flex-col gap-1.5 w-full">
         <div className="flex items-center justify-center">
